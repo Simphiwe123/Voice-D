@@ -47,6 +47,11 @@ export default function Home() {
     const secondsDisplay = seconds < 10 ? `0${seconds}` : seconds;
     return `${minutesDisplay}:${secondsDisplay}`;
   }
+  const deleteRecording = (index) => {
+    let updatedRecordings = [...recordings];
+    updatedRecordings.splice(index, 1);
+    setRecordings(updatedRecordings);
+  }
   function getRecordingLines() {
     return recordings.map((recordingLine, index) => {
       return (
@@ -54,6 +59,7 @@ export default function Home() {
           <Text style={styles.fill}>Recording {index + 1} - {recordingLine.duration}</Text>
           <Button style={styles.button} onPress={() => recordingLine.sound.replayAsync()} title="Play" color="#9b59b6"></Button>
           <Button style={styles.button} onPress={() => Sharing.shareAsync(recordingLine.file)} title="Share" color="#9b59b6"></Button>
+          <Button style={styles.button} onPress={() => deleteRecording(index)}title='Delete' color="red"></Button>
           
         </View>
       );
